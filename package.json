@@ -1,0 +1,12 @@
+{
+  "name": "decan-internet-speed-tester",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Decan Internet Speed Tester backend and static frontend server",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

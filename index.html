@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Decan Internet Speed Tester checks your real internet speed with a modern, responsive network diagnostic interface."
+    />
+    <title>Decan Internet Speed Tester</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div id="three-bg" aria-hidden="true"></div>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand" aria-label="Decan brand">DECAN</div>
+
+        <nav class="site-nav" aria-label="Main navigation">
+          <a href="#about">About</a>
+          <a href="#connection-details">Connection</a>
+          <a href="#history-section">History</a>
+        </nav>
+      </header>
+
+      <main class="page">
+        <section class="hero panel" id="about">
+          <p class="eyebrow">Decan Internet Speed Tester</p>
+          <h1>Check your internet connection speed</h1>
+
+          <div class="ip-card" aria-live="polite">
+            <span class="card-label">Your IP</span>
+            <div class="ip-row">
+              <span id="public-ip-value" class="ip-value">Loading...</span>
+              <button id="copy-ip-btn" class="secondary-btn" type="button" aria-label="Copy public IP address">
+                Copy IP
+              </button>
+            </div>
+          </div>
+
+          <div class="gauge-wrap">
+            <div id="gauge" class="gauge" aria-live="polite">
+              <div id="gauge-ring" class="gauge-ring" aria-hidden="true"></div>
+              <div class="gauge-center">
+                <div id="speed-value" class="speed-value">0</div>
+                <div id="speed-unit" class="speed-unit">Mbps</div>
+                <div id="current-phase" class="phase">Preparing test...</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mini-metrics" aria-live="polite">
+            <div class="mini-stat">
+              <span class="label">Ping</span>
+              <strong id="ping-value">--</strong>
+              <small>ms</small>
+            </div>
+            <div class="mini-stat">
+              <span class="label">Upload</span>
+              <strong id="upload-preview">--</strong>
+            </div>
+          </div>
+
+          <button id="start-test-btn" class="cta-btn" type="button">START TEST</button>
+
+          <div id="status-banner" class="status-banner" role="status" aria-live="polite" hidden></div>
+        </section>
+
+        <section id="results-section" class="results-section panel hidden" aria-live="polite">
+          <div class="results-grid">
+            <article class="result-card download-card">
+              <div class="result-head">
+                <span class="result-icon">↓</span>
+                <span class="result-title">Download</span>
+              </div>
+              <div class="result-value-wrap">
+                <strong id="download-value" class="result-value">--</strong>
+                <span id="download-unit" class="result-unit">Mbps</span>
+              </div>
+              <p id="download-description" class="result-description">Awaiting result</p>
+            </article>
+
+            <article class="result-card upload-card">
+              <div class="result-head">
+                <span class="result-icon">↑</span>
+                <span class="result-title">Upload</span>
+              </div>
+              <div class="result-value-wrap">
+                <strong id="upload-value" class="result-value">--</strong>
+                <span id="upload-unit" class="result-unit">Mbps</span>
+              </div>
+              <p id="upload-description" class="result-description">Awaiting result</p>
+            </article>
+
+            <article class="result-card ping-card">
+              <div class="result-head">
+                <span class="result-icon">◉</span>
+                <span class="result-title">Ping</span>
+              </div>
+              <div class="result-value-wrap">
+                <strong id="ping-result-value" class="result-value">--</strong>
+                <span class="result-unit">ms</span>
+              </div>
+              <p id="ping-description" class="result-description">Awaiting result</p>
+            </article>
+
+            <article class="result-card jitter-card">
+              <div class="result-head">
+                <span class="result-icon">◌</span>
+                <span class="result-title">Jitter</span>
+              </div>
+              <div class="result-value-wrap">
+                <strong id="jitter-value" class="result-value">--</strong>
+                <span class="result-unit">ms</span>
+              </div>
+              <p id="jitter-description" class="result-description">Awaiting result</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="history-section" class="history panel">
+          <div class="section-heading">
+            <h2>Recent tests</h2>
+            <button id="clear-history-btn" class="clear-history-btn" type="button">Clear history</button>
+          </div>
+          <ul id="history-list" class="history-list" aria-live="polite"></ul>
+        </section>
+
+        <section id="connection-details" class="details panel">
+          <button
+            id="toggle-connection-details"
+            class="details-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="connection-details-content"
+          >
+            Connection Details
+          </button>
+
+          <div id="connection-details-content" class="details-content" hidden>
+            <dl class="detail-list">
+              <div class="detail-row">
+                <dt>Network type</dt>
+                <dd id="network-type">Unavailable</dd>
+              </div>
+              <div class="detail-row">
+                <dt>Effective type</dt>
+                <dd id="effective-type">Unavailable</dd>
+              </div>
+              <div class="detail-row">
+                <dt>Downlink estimate</dt>
+                <dd id="downlink-estimate">Unavailable</dd>
+              </div>
+              <div class="detail-row">
+                <dt>RTT estimate</dt>
+                <dd id="rtt-estimate">Unavailable</dd>
+              </div>
+              <div class="detail-row">
+                <dt>Online status</dt>
+                <dd id="online-status">Checking...</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-brand">Decan Internet Speed Tester</div>
+        <div class="footer-meta">Made by Lenny Muriuki — Founder of Decan Konnect</div>
+        <div class="footer-tag">Your network. Your speed. Your data.</div>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>
